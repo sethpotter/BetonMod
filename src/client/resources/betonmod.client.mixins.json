@@ -6,7 +6,8 @@
         "ClientPlayerEntityMixin",
         "ClientPlayerInteractionManagerMixin",
         "DebugHudMixin",
-        "OptionsScreenMixin"
+        "OptionsScreenMixin",
+        "HoneyBlockMixin"
     ],
     "injectors": {
         "defaultRequire": 1

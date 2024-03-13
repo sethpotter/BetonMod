@@ -1,5 +1,5 @@
 {
-  "soundtrack": {
+  "music.soundtrack": {
     "sounds": [
       {
         "name": "betonmod:music/bath/betonbrutal_a_long_way_up",
@@ -44,7 +44,7 @@
     ],
     "subtitle": "Soundtrack Plays"
   },
-  "walk": {
+  "player.walk": {
     "sounds": [
       "betonmod:step/walk1",
       "betonmod:step/walk2",
@@ -60,7 +60,7 @@
       "betonmod:step/walk12"
     ]
   },
-  "run": {
+  "player.run": {
     "sounds": [
       "betonmod:step/run1",
       "betonmod:step/run2",
@@ -84,7 +84,7 @@
       "betonmod:step/run20"
     ]
   },
-  "jump": {
+  "player.jump": {
     "sounds": [
       "betonmod:step/takeoff1",
       "betonmod:step/takeoff2",
@@ -95,7 +95,7 @@
       "betonmod:step/takeoff7"
     ]
   },
-  "land": {
+  "player.land": {
     "sounds": [
       "betonmod:step/land1",
       "betonmod:step/land2",
@@ -105,9 +105,39 @@
       "betonmod:step/land6"
     ]
   },
-  "wind": {
+  "player.wind": {
     "sounds": [
       "betonmod:ambient/player/wind"
+    ]
+  },
+  "player.fear": {
+    "sounds": [
+      "betonmod:ambient/player/fear"
+    ]
+  },
+  "player.iceslide": {
+    "sounds": [
+      "betonmod:step/iceslide"
+    ]
+  },
+  "ambient.concrete_ambience": {
+    "sounds": [
+      "betonmod:ambient/concrete_ambience"
+    ]
+  },
+  "ambient.crumbling": {
+    "sounds": [
+      "betonmod:ambient/crumbling"
+    ]
+  },
+  "ambient.distance_nature": {
+    "sounds": [
+      "betonmod:ambient/distance_nature"
+    ]
+  },
+  "ambient.nature": {
+    "sounds": [
+      "betonmod:ambient/nature"
     ]
   }
 }

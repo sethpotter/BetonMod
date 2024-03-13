@@ -32,8 +32,10 @@ public class BetonConfig implements ConfigData {
     public final SimpleOption<Double> sprintingSpeed = intRangeSlider("Sprinting Speed", 0.06, 0.0, 2.0, 0, 200, 100.0);
     public final SimpleOption<Double> playerGravity = intRangeSlider("Player Gravity", 0.08, 0.0, 0.3, 0, 300, 1000.0);
     public final SimpleOption<Double> jumpPower = intRangeSlider("Jump Power", 0.42, 0.0, 2.0, 0, 200, 100.0);
-    public final SimpleOption<Double> honeyJumpPower = intRangeSlider("Honey Jump Power", 0.0, 0.0, 1.0, 0, 100, 100.0);
-    public final SimpleOption<Double> honeyJumpSpeed = intRangeSlider("Honey Jump Speed", 0.3, 0.0, 2.0, 0, 200, 100.0);
+    public final SimpleOption<Double> honeyJumpPower = intRangeSlider("Honey Jump Power", 0.35, 0.0, 1.0, 0, 100, 100.0);
+    public final SimpleOption<Double> honeyJumpSpeed = intRangeSlider("Honey Jump Speed", 0.35, 0.0, 2.0, 0, 200, 100.0);
+    public final SimpleOption<Double> honeySlideSpeed = intRangeSlider("Honey Slide Speed", -0.075, -1.0, 1.0, -100, 100, 100.0);
+    public final SimpleOption<Double> honeySlideDecay = intRangeSlider("Honey Slide Decay", 0.05, 0.0, 1.0, 0, 100, 100.0);
 
 
     private SimpleOption<Double> intRangeSlider(String text, double defaultValue, double min, double max, int minStep, int maxStep, double step) {

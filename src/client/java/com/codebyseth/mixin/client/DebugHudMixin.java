@@ -35,6 +35,7 @@ public class DebugHudMixin {
             list.add(String.format(Locale.ROOT, "Honey Sliding: %b", betonPlayer.honeySliding));
             list.add(String.format(Locale.ROOT, "Sprinting: %b", betonPlayer.isSprinting()));
             list.add(String.format(Locale.ROOT, "Jumping: %b", betonPlayer.input.jumping));
+            list.add(String.format(Locale.ROOT, "H: %b, V: %b, G: %b", betonPlayer.horizontalCollision, betonPlayer.verticalCollision, betonPlayer.groundCollision));
             //list.add(String.format(Locale.ROOT, "Scroll: %.3f", minecraft.mouseHandler.mouseScroll));
 
             list.add("");
