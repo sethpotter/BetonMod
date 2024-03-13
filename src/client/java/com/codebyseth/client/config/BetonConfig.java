@@ -12,9 +12,9 @@ import java.util.Locale;
 @Config(name = "betonmod")
 public class BetonConfig implements ConfigData {
 
-    public final SimpleOption<Boolean> betonMovement = SimpleOption.ofBoolean("Beton Movement", false);
+    public final SimpleOption<Boolean> betonMovement = SimpleOption.ofBoolean("Beton Movement", true);
     public final SimpleOption<Boolean> applyBlockFriction = SimpleOption.ofBoolean("Block Friction", false);
-    public final SimpleOption<Boolean> applyBlockJumpFactor = SimpleOption.ofBoolean("Block Jump Factor", false);
+    public final SimpleOption<Boolean> applyBlockJumpFactor = SimpleOption.ofBoolean("Block Jump Factor", true);
     public final SimpleOption<Boolean> scrollJump = SimpleOption.ofBoolean("Scroll Jump", false);
     public final SimpleOption<Double> airControl = intRangeSlider("Air Control", 6.5, 0.0, 20.0, 0, 2000, 100.0);
     public final SimpleOption<Double> groundControl = intRangeSlider("Ground Control", 7.5, 0.0, 20.0, 0, 2000, 100.0);
@@ -28,7 +28,7 @@ public class BetonConfig implements ConfigData {
     public final SimpleOption<Double> lowFrictionThreshold = intRangeSlider("Low Friction Threshold", 0.9, 0.0, 1.0, 0, 100, 100.0);
     public final SimpleOption<Double> deltaTicks = intRangeSlider("Delta Ticks", 0.05, 0.0, 1.0, 0, 20, 20.0);
     public final SimpleOption<Double> climbingSpeedCap = intRangeSlider("Climbing Speed Cap", 0.3, 0.0, 2.0, 0, 200, 100.0);
-    public final SimpleOption<Double> climbingSpeed = intRangeSlider("Climbing Speed", 0.3, 0.0, 2.0, 0, 200, 100.0);
+    public final SimpleOption<Double> climbingSpeed = intRangeSlider("Climbing Speed", 0.35, 0.0, 2.0, 0, 200, 100.0);
     public final SimpleOption<Double> sprintingSpeed = intRangeSlider("Sprinting Speed", 0.06, 0.0, 2.0, 0, 200, 100.0);
     public final SimpleOption<Double> playerGravity = intRangeSlider("Player Gravity", 0.08, 0.0, 0.3, 0, 300, 1000.0);
     public final SimpleOption<Double> jumpPower = intRangeSlider("Jump Power", 0.42, 0.0, 2.0, 0, 200, 100.0);

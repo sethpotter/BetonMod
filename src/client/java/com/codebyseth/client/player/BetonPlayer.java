@@ -1,32 +1,35 @@
 package com.codebyseth.client.player;
 
 import com.codebyseth.BetonModClient;
+import com.codebyseth.BetonModSounds;
+import com.codebyseth.WindSoundInstance;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PowderSnowBlock;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.DownloadingTerrainScreen;
-import net.minecraft.client.input.Input;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.recipebook.ClientRecipeBook;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Flutterer;
+import net.minecraft.entity.MovementType;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.item.ElytraItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.stat.StatHandler;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+
+import java.util.UUID;
 
 public class BetonPlayer extends ClientPlayerEntity {
 
@@ -35,6 +38,8 @@ public class BetonPlayer extends ClientPlayerEntity {
 
     public BetonPlayer(MinecraftClient client, ClientWorld world, ClientPlayNetworkHandler networkHandler, StatHandler stats, ClientRecipeBook recipeBook, boolean lastSneaking, boolean lastSprinting) {
         super(client, world, networkHandler, stats, recipeBook, lastSneaking, lastSprinting);
+
+        this.client.getSoundManager().play(new WindSoundInstance(this));
     }
 
     @Override
@@ -44,6 +49,30 @@ public class BetonPlayer extends ClientPlayerEntity {
             return;
         }
 
+        double d;
+        if (this.isSwimming() && !this.hasVehicle()) {
+            d = this.getRotationVector().y;
+            double e = d < -0.2 ? 0.085 : 0.06;
+            if (d <= 0.0 || this.jumping || !this.getWorld().getBlockState(BlockPos.ofFloored(this.getX(), this.getY() + 1.0 - 0.1, this.getZ())).getFluidState().isEmpty()) {
+                Vec3d vec3d = this.getVelocity();
+                this.setVelocity(vec3d.add(0.0, (d - vec3d.y) * e, 0.0));
+            }
+        }
+
+        if (this.getAbilities().flying && !this.hasVehicle()) {
+            d = this.getVelocity().y;
+            //super.travel(movementInput); // TODO Error.
+            livingEntityTravel(movementInput);
+            Vec3d vec3d2 = this.getVelocity();
+            this.setVelocity(vec3d2.x, d * 0.6, vec3d2.z);
+            this.onLanding();
+            this.setFlag(7, false);
+        } else {
+            livingEntityTravel(movementInput);
+        }
+    }
+
+    private void livingEntityTravel(Vec3d movementInput) {
         if (this.isLogicalSideForUpdatingMovement()) {
             double d = BetonModClient.config.playerGravity.getValue();
             boolean bl = this.getVelocity().y <= 0.0;
@@ -178,8 +207,6 @@ public class BetonPlayer extends ClientPlayerEntity {
 
                 Vec3d movementInputVelocity = movementInputToVelocity(movementInput, speed, this.getYaw());
 
-                this.setVelocity(this.getVelocity().add(movementInputVelocity));
-
                 if (this.isOnGround()) {
                     if (block.getSlipperiness() >= BetonModClient.config.lowFrictionThreshold.getValue()) {
                         this.setVelocity(lerpVector(this.getVelocity(), movementInputVelocity, BetonModClient.config.deltaTicks.getValue().floatValue() * BetonModClient.config.lowFrictionControl.getValue().floatValue()));
@@ -203,7 +230,7 @@ public class BetonPlayer extends ClientPlayerEntity {
                 Vec3d vec3d = this.getVelocity();
 
                 if ((this.horizontalCollision || this.jumping) && (this.isClimbing() || this.getBlockStateAtPos().isOf(Blocks.POWDER_SNOW) && PowderSnowBlock.canWalkOnPowderSnow(this))) {
-                    vec3d = new Vec3d(vec3d.x, 0.2, vec3d.z);
+                    vec3d = new Vec3d(vec3d.x, BetonModClient.config.climbingSpeed.getValue(), vec3d.z);
                 }
 
                 double q = vec3d.y;
@@ -253,6 +280,8 @@ public class BetonPlayer extends ClientPlayerEntity {
 
         this.velocityDirty = true;
 
+        this.playSound(BetonModSounds.JUMP_EVENT, 0.75f, 1.0f);
+
         this.incrementStat(Stats.JUMP);
         if (this.isSprinting()) {
             this.addExhaustion(0.2F);
@@ -292,25 +321,71 @@ public class BetonPlayer extends ClientPlayerEntity {
         return this.isOnGround() ? this.getMovementSpeed() * (0.21600002F / (slipperiness * slipperiness * slipperiness)) : this.getOffGroundSpeed();
     }*/
 
-    /*@Override
+    @Override
     public float getMovementSpeed() {
-        return (float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-    }*/
+        this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).removeModifier(UUID.fromString("662A6B8D-DA3E-4C1C-8813-96EA6097278D"));
+        return (float) this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+    }
 
     @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        if (this.isTouchingWater()) {
+            this.playSwimSound();
+            this.playSecondaryStepSound(state);
+        } else {
+            BlockPos blockPos = this.getStepSoundPos(pos);
+            if (!pos.equals(blockPos)) {
+                BlockState blockState = this.getWorld().getBlockState(blockPos);
+                if (blockState.isIn(BlockTags.COMBINATION_STEP_SOUND_BLOCKS)) {
+                    this.playCombinationStepSounds(blockState, state);
+                } else {
+                    entityPlayStepSound(blockPos, blockState);
+                }
+            } else {
+                entityPlayStepSound(pos, state);
+            }
+        }
+    }
+
+    private void entityPlayStepSound(BlockPos pos, BlockState state) {
+        BlockSoundGroup blockSoundGroup = state.getSoundGroup();
+
+        if (blockSoundGroup == BlockSoundGroup.STONE) {
+            if (this.isSprinting()) {
+                this.playSound(BetonModSounds.RUN_EVENT, blockSoundGroup.getVolume() * 0.15F, blockSoundGroup.getPitch());
+            } else {
+                this.playSound(BetonModSounds.WALK_EVENT, blockSoundGroup.getVolume() * 0.15F, blockSoundGroup.getPitch());
+            }
+        } else {
+            this.playSound(blockSoundGroup.getStepSound(), blockSoundGroup.getVolume() * 0.15F, blockSoundGroup.getPitch());
+        }
+    }
+
+    @Override
+    public void setOnGround(boolean onGround, Vec3d movement) {
+        if (!this.isOnGround() && onGround) {
+            this.playSound(BetonModSounds.LAND_EVENT, 1.0f, 1.0f);
+        }
+
+        super.setOnGround(onGround, movement);
+    }
+
+    /*@Override
     public void setSprinting(boolean sprinting) {
         if (!BetonModClient.config.betonMovement.getValue()) {
             super.setSprinting(sprinting);
             return;
         }
 
+        // Remove Speed Boost.
+        super.setSprinting(false);
         this.setFlag(3, sprinting);
-    }
+    }*/
 
     // Flying speed.
-    protected float getOffGroundSpeed() {
+    /*protected float getOffGroundSpeed() {
         return this.getControllingPassenger() instanceof PlayerEntity ? this.getMovementSpeed() * 0.1F : 0.02F;
-    }
+    }*/
 
     private SoundEvent getFallSound(int distance) {
         return distance > 4 ? this.getFallSounds().big() : this.getFallSounds().small();
@@ -334,10 +409,10 @@ public class BetonPlayer extends ClientPlayerEntity {
     private Vec3d applyClimbingSpeed(Vec3d motion) {
         if (this.isClimbing()) {
             this.onLanding();
-            float f = BetonModClient.config.climbingSpeed.getValue().floatValue();
-            double d = MathHelper.clamp(motion.x, -BetonModClient.config.climbingSpeedCap.getValue(), BetonModClient.config.climbingSpeedCap.getValue());
-            double e = MathHelper.clamp(motion.z, -BetonModClient.config.climbingSpeedCap.getValue(), BetonModClient.config.climbingSpeedCap.getValue());
-            double g = Math.max(motion.y, -BetonModClient.config.climbingSpeedCap.getValue());
+            float f = BetonModClient.config.climbingSpeedCap.getValue().floatValue();
+            double d = MathHelper.clamp(motion.x, -f, f);
+            double e = MathHelper.clamp(motion.z, -f, f);
+            double g = Math.max(motion.y, -f);
             if (g < 0.0 && !this.getBlockStateAtPos().isOf(Blocks.SCAFFOLDING) && this.isHoldingOntoLadder() && this instanceof PlayerEntity) {
                 g = 0.0;
             }

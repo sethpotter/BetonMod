@@ -19,7 +19,9 @@ public class ClientPlayerEntityMixin {
     @Inject(method = "isWalking", at = @At(value = "RETURN"), cancellable = true)
     private void isWalking(CallbackInfoReturnable<Boolean> cir) {
         ClientPlayerEntity self = (ClientPlayerEntity) (Object) this;
-        boolean hasImpulse = self.input.movementForward >= 0.8 || self.input.movementForward <= -0.8;
+        //boolean hasImpulse = self.input.movementForward >= 0.8 || self.input.movementForward <= -0.8;
+        boolean hasImpulse = true;
         cir.setReturnValue(self.isSubmergedInWater() ? self.input.hasForwardMovement() : hasImpulse);
     }
+
 }

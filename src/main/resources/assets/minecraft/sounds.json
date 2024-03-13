@@ -5485,6 +5485,7 @@
     "subtitle": "subtitles.block.generic.break"
   },
   "block.ladder.fall": {
+    "replace": "true",
     "sounds": [
       "betonmod:step/ladder1",
       "betonmod:step/ladder2",
@@ -5520,6 +5521,7 @@
     "subtitle": "subtitles.block.generic.place"
   },
   "block.ladder.step": {
+    "replace": "true",
     "sounds": [
       "betonmod:step/ladder1",
       "betonmod:step/ladder2",

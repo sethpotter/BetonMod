@@ -43,5 +43,71 @@
       }
     ],
     "subtitle": "Soundtrack Plays"
+  },
+  "walk": {
+    "sounds": [
+      "betonmod:step/walk1",
+      "betonmod:step/walk2",
+      "betonmod:step/walk3",
+      "betonmod:step/walk4",
+      "betonmod:step/walk5",
+      "betonmod:step/walk6",
+      "betonmod:step/walk7",
+      "betonmod:step/walk8",
+      "betonmod:step/walk9",
+      "betonmod:step/walk10",
+      "betonmod:step/walk11",
+      "betonmod:step/walk12"
+    ]
+  },
+  "run": {
+    "sounds": [
+      "betonmod:step/run1",
+      "betonmod:step/run2",
+      "betonmod:step/run3",
+      "betonmod:step/run4",
+      "betonmod:step/run5",
+      "betonmod:step/run6",
+      "betonmod:step/run7",
+      "betonmod:step/run8",
+      "betonmod:step/run9",
+      "betonmod:step/run10",
+      "betonmod:step/run11",
+      "betonmod:step/run12",
+      "betonmod:step/run13",
+      "betonmod:step/run14",
+      "betonmod:step/run15",
+      "betonmod:step/run16",
+      "betonmod:step/run17",
+      "betonmod:step/run18",
+      "betonmod:step/run19",
+      "betonmod:step/run20"
+    ]
+  },
+  "jump": {
+    "sounds": [
+      "betonmod:step/takeoff1",
+      "betonmod:step/takeoff2",
+      "betonmod:step/takeoff3",
+      "betonmod:step/takeoff4",
+      "betonmod:step/takeoff5",
+      "betonmod:step/takeoff6",
+      "betonmod:step/takeoff7"
+    ]
+  },
+  "land": {
+    "sounds": [
+      "betonmod:step/land1",
+      "betonmod:step/land2",
+      "betonmod:step/land3",
+      "betonmod:step/land4",
+      "betonmod:step/land5",
+      "betonmod:step/land6"
+    ]
+  },
+  "wind": {
+    "sounds": [
+      "betonmod:ambient/player/wind"
+    ]
   }
 }
