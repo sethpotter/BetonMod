@@ -1,0 +1,47 @@
+{
+  "soundtrack": {
+    "sounds": [
+      {
+        "name": "betonmod:music/bath/betonbrutal_a_long_way_up",
+        "stream": true
+      },
+      {
+        "name": "betonmod:music/bath/betonbrutal_getting_used_to_it",
+        "stream": true
+      },
+      {
+        "name": "betonmod:music/bath/betonbrutal_it_never_ends",
+        "stream": true
+      },
+      {
+        "name": "betonmod:music/bath/betonbrutal_vertigo_and_waterslides",
+        "stream": true
+      },
+      {
+        "name": "betonmod:music/bath/water",
+        "stream": true
+      },
+      {
+        "name": "betonmod:music/brutal/1",
+        "stream": true
+      },
+      {
+        "name": "betonmod:music/brutal/2",
+        "stream": true
+      },
+      {
+        "name": "betonmod:music/brutal/3",
+        "stream": true
+      },
+      {
+        "name": "betonmod:music/brutal/4",
+        "stream": true
+      },
+      {
+        "name": "betonmod:music/brutal/micsong",
+        "stream": true
+      }
+    ],
+    "subtitle": "Soundtrack Plays"
+  }
+}

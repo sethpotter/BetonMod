@@ -1,0 +1,14 @@
+{
+    "required": true,
+    "package": "com.codebyseth.mixin.client",
+    "compatibilityLevel": "JAVA_17",
+    "client": [
+        "ClientPlayerEntityMixin",
+        "ClientPlayerInteractionManagerMixin",
+        "DebugHudMixin",
+        "OptionsScreenMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}
