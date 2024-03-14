@@ -120,6 +120,37 @@
       "betonmod:step/iceslide"
     ]
   },
+  "player.turn": {
+    "sounds": [
+      "betonmod:step/turn1",
+      "betonmod:step/turn2",
+      "betonmod:step/turn3",
+      "betonmod:step/turn4",
+      "betonmod:step/turn5",
+      "betonmod:step/turn6",
+      "betonmod:step/turn7",
+      "betonmod:step/turn8",
+      "betonmod:step/turn9",
+      "betonmod:step/turn10",
+      "betonmod:step/turn11"
+    ]
+  },
+  "player.pipe.step": {
+    "sounds": [
+      "betonmod:step/pipe1",
+      "betonmod:step/pipe2",
+      "betonmod:step/pipe3",
+      "betonmod:step/pipe4",
+      "betonmod:step/pipe5"
+    ]
+  },
+  "player.metal.step": {
+    "sounds": [
+      "betonmod:step/metal1",
+      "betonmod:step/metal2",
+      "betonmod:step/metal3"
+    ]
+  },
   "ambient.concrete_ambience": {
     "sounds": [
       "betonmod:ambient/concrete_ambience"

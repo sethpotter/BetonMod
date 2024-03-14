@@ -47,7 +47,8 @@ public class ClientSettingsScreen extends GameOptionsScreen {
                 BetonModClient.config.honeyJumpPower,
                 BetonModClient.config.honeyJumpSpeed,
                 BetonModClient.config.honeySlideSpeed,
-                BetonModClient.config.honeySlideDecay
+                BetonModClient.config.honeySlideDecay,
+                BetonModClient.config.sprintAirSpeedBonus
         };
 
         this.list.addAll(options);

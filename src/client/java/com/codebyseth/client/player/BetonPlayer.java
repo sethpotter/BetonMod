@@ -218,6 +218,11 @@ public class BetonPlayer extends ClientPlayerEntity {
 
                 if (this.isSprinting()) {
                     speed += BetonModClient.config.sprintingSpeed.getValue();
+
+                    // Air speed bonus while sprinting.
+                    if (!this.isOnGround()) {
+                        speed += BetonModClient.config.sprintAirSpeedBonus.getValue();
+                    }
                 }
 
                 speed *= 1f + slideBoost;
@@ -362,6 +367,8 @@ public class BetonPlayer extends ClientPlayerEntity {
             } else {
                 this.playSound(BetonModSounds.WALK_EVENT, blockSoundGroup.getVolume() * 0.15F, blockSoundGroup.getPitch());
             }
+        } else if (blockSoundGroup == BlockSoundGroup.COPPER || this.clientWorld.getBlockState(pos).getBlock() == Blocks.IRON_BARS) {
+            this.playSound(BetonModSounds.METAL_EVENT, blockSoundGroup.getVolume() * 0.25F, blockSoundGroup.getPitch());
         } else {
             this.playSound(blockSoundGroup.getStepSound(), blockSoundGroup.getVolume() * 0.15F, blockSoundGroup.getPitch());
         }

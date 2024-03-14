@@ -43,6 +43,15 @@ public class BetonModSounds {
     public static final Identifier ICESLIDE_ID = new Identifier("betonmod:player.iceslide");
     public static SoundEvent ICESLIDE_EVENT = SoundEvent.of(ICESLIDE_ID);
 
+    public static final Identifier PIPE_ID = new Identifier("betonmod:player.pipe.step");
+    public static SoundEvent PIPE_EVENT = SoundEvent.of(PIPE_ID);
+
+    public static final Identifier METAL_ID = new Identifier("betonmod:player.metal.step");
+    public static SoundEvent METAL_EVENT = SoundEvent.of(METAL_ID);
+
+    public static final Identifier TURN_ID = new Identifier("betonmod:player.turn");
+    public static SoundEvent TURN_EVENT = SoundEvent.of(TURN_ID);
+
     public static void init(){
         Registry.register(Registries.SOUND_EVENT, BetonModSounds.SOUNDTRACK_ID, SOUNDTRACK_EVENT);
         Registry.register(Registries.SOUND_EVENT, BetonModSounds.WALK_ID, WALK_EVENT);
@@ -50,15 +59,15 @@ public class BetonModSounds {
         Registry.register(Registries.SOUND_EVENT, BetonModSounds.JUMP_ID, JUMP_EVENT);
         Registry.register(Registries.SOUND_EVENT, BetonModSounds.LAND_ID, LAND_EVENT);
         Registry.register(Registries.SOUND_EVENT, BetonModSounds.WIND_ID, WIND_EVENT);
-
         Registry.register(Registries.SOUND_EVENT, BetonModSounds.CONCRETE_AMBIENCE_ID, CONCRETE_AMBIENCE_EVENT);
         Registry.register(Registries.SOUND_EVENT, BetonModSounds.CRUMBLING_ID, CRUMBLING_EVENT);
         Registry.register(Registries.SOUND_EVENT, BetonModSounds.DISTANT_NATURE_ID, DISTANT_NATURE_EVENT);
         Registry.register(Registries.SOUND_EVENT, BetonModSounds.NATURE_ID, NATURE_EVENT);
-
         Registry.register(Registries.SOUND_EVENT, BetonModSounds.FEAR_ID, FEAR_EVENT);
         Registry.register(Registries.SOUND_EVENT, BetonModSounds.ICESLIDE_ID, ICESLIDE_EVENT);
-
+        Registry.register(Registries.SOUND_EVENT, BetonModSounds.PIPE_ID, PIPE_EVENT);
+        Registry.register(Registries.SOUND_EVENT, BetonModSounds.METAL_ID, METAL_EVENT);
+        Registry.register(Registries.SOUND_EVENT, BetonModSounds.TURN_ID, TURN_EVENT);
     }
 
 }

@@ -8,6 +8,7 @@ import net.fabricmc.api.ClientModInitializer;
 public class BetonModClient implements ClientModInitializer {
 
 	public static BetonConfig config;
+	public static double mouseScroll;
 
 	@Override
 	public void onInitializeClient() {
