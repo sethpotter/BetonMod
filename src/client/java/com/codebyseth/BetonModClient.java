@@ -1,8 +1,8 @@
 package com.codebyseth;
 
 import com.codebyseth.client.config.BetonConfig;
+import com.codebyseth.client.config.BetonConfigSerializer;
 import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
 
 public class BetonModClient implements ClientModInitializer {
@@ -12,7 +12,7 @@ public class BetonModClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		AutoConfig.register(BetonConfig.class, GsonConfigSerializer::new);
+		AutoConfig.register(BetonConfig.class, BetonConfigSerializer::new);
 		config = AutoConfig.getConfigHolder(BetonConfig.class).getConfig();
 	}
 

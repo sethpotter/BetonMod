@@ -241,7 +241,7 @@ public class BetonPlayer extends ClientPlayerEntity {
 
                 this.setVelocity(this.applyClimbingSpeed(this.getVelocity()));
 
-                if (this.prevHoneySlide) { // This was always false XDDDDDD
+                if (this.prevHoneySlide) {
                     float fall = (float) MathHelper.lerp(BetonModClient.config.honeySlideDecay.getValue(), this.getVelocity().getY(), BetonModClient.config.honeySlideSpeed.getValue());
                     this.setVelocity(this.getVelocity().getX(), fall, this.getVelocity().getZ());
                     d = 0; // Negate gravity.
@@ -367,8 +367,10 @@ public class BetonPlayer extends ClientPlayerEntity {
             } else {
                 this.playSound(BetonModSounds.WALK_EVENT, blockSoundGroup.getVolume() * 0.15F, blockSoundGroup.getPitch());
             }
-        } else if (blockSoundGroup == BlockSoundGroup.COPPER || this.clientWorld.getBlockState(pos).getBlock() == Blocks.IRON_BARS) {
-            this.playSound(BetonModSounds.METAL_EVENT, blockSoundGroup.getVolume() * 0.25F, blockSoundGroup.getPitch());
+        } else if (this.clientWorld.getBlockState(pos).getBlock() == Blocks.IRON_BARS) {
+            this.playSound(BetonModSounds.METAL_EVENT, blockSoundGroup.getVolume() * 0.3F, blockSoundGroup.getPitch());
+        } else if (blockSoundGroup == BlockSoundGroup.COPPER) {
+            this.playSound(BetonModSounds.PIPE_EVENT, blockSoundGroup.getVolume() * 0.35F, blockSoundGroup.getPitch());
         } else {
             this.playSound(blockSoundGroup.getStepSound(), blockSoundGroup.getVolume() * 0.15F, blockSoundGroup.getPitch());
         }
@@ -378,6 +380,8 @@ public class BetonPlayer extends ClientPlayerEntity {
     public void setOnGround(boolean onGround, Vec3d movement) {
         if (!this.isOnGround() && onGround) {
             this.playSound(BetonModSounds.LAND_EVENT, 1.0f, 1.0f);
+            BlockPos stepPos = this.getSteppingPos();
+            this.entityPlayStepSound(stepPos, this.clientWorld.getBlockState(stepPos));
         }
 
         super.setOnGround(onGround, movement);

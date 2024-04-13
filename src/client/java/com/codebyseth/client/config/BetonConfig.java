@@ -38,7 +38,6 @@ public class BetonConfig implements ConfigData {
     public final SimpleOption<Double> honeySlideDecay = intRangeSlider("Honey Slide Decay", 0.05, 0.0, 1.0, 0, 100, 100.0);
     public final SimpleOption<Double> sprintAirSpeedBonus = intRangeSlider("Sprinting Air Speed", 0.075, 0.0, 2.0, 0, 200, 100.0);
 
-
     private SimpleOption<Double> intRangeSlider(String text, double defaultValue, double min, double max, int minStep, int maxStep, double step) {
         return new SimpleOption<>(text, SimpleOption.emptyTooltip(), (optionText, value) -> {
             return GameOptions.getGenericValueText(optionText, Text.of(String.format(Locale.ROOT, "%.2f", value)));
@@ -48,5 +47,35 @@ public class BetonConfig implements ConfigData {
             return (int) (sliderProgressValue * step);
         }), Codec.doubleRange(min, max), defaultValue, (out) -> {
         });
+    }
+
+    public SimpleOption<?>[] options() {
+        return new SimpleOption<?>[] {
+                betonMovement,
+                applyBlockFriction,
+                applyBlockJumpFactor,
+                scrollJump,
+                airControl,
+                groundControl,
+                lowFrictionControl,
+                airSpeedBonus,
+                groundSpeedBonus,
+                slideBoostCap,
+                slideBoostDecay,
+                slideBoostAmount,
+                slideBoostFrictionThreshold,
+                lowFrictionThreshold,
+                deltaTicks,
+                climbingSpeedCap,
+                climbingSpeed,
+                sprintingSpeed,
+                playerGravity,
+                jumpPower,
+                honeyJumpPower,
+                honeyJumpSpeed,
+                honeySlideSpeed,
+                honeySlideDecay,
+                sprintAirSpeedBonus
+        };
     }
 }
